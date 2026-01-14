@@ -1,6 +1,10 @@
+---
+description: Deploy Crossplane + Backstage + ArgoCD POC for AWS infrastructure
+---
+
 # Crossplane + Backstage + ArgoCD POC Deployment Workflow
 
-##  Workflow Architecture
+## 🔄 Workflow Architecture
 
 ```
 1. User điền form trong Backstage UI
@@ -113,13 +117,38 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 Access: https://<IP-PUB>:31903(username: admin)
 
+## Step 6: Generate ArgoCD Token
 
+**⚠️ Important: Port-forward must be running before executing these commands!**
+
+```bash
+
+
+# Get admin password
+
+
+
+# Login to ArgoCD
+argocd login 52.221.211.56:31903 \
+  --username admin \
+  --password $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode) \
+  --plaintext
+# Generate token for Backstage
+argocd account generate-token --account admin --id backstage
+```
 
 Save this token - you'll need it for GitHub secrets.
 
+## Step 7: Configure GitHub Organization/Account Secrets
 
+Go to GitHub → Settings → Secrets → Actions and add:
 
-## Step 6: Install Backstage
+| Secret Name | Value |
+|-------------|-------|
+| `ARGOCD_SERVER` | Your ArgoCD server URL (e.g., `argocd.example.com` or `localhost:8080`) |
+| `ARGOCD_AUTH_TOKEN` | Token from Step 6 |
+
+## Step 8: Install Backstage
 
 
 
@@ -135,7 +164,7 @@ kubectl port-forward -n backstage svc/backstage 7007:80
 ```
 Access: http://localhost:7007
 
-## Step 7: Register Templates in Backstage
+## Step 9: Register Templates in Backstage
 
 1. Open Backstage: http://localhost:7007
 2. Go to **Create** menu
@@ -170,3 +199,8 @@ kubectl get applications -n argocd
 # Check catalog at http://localhost:7007/catalog
 ```
 
+## Cleanup
+
+```bash
+bash d:/jenkins-self-lab/crossplane-backstage/scripts/cleanup.sh
+```
