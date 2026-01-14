@@ -27,8 +27,20 @@
 - [ ] GitHub Personal Access Token (scopes: `repo`, `workflow`)
 - [ ] NPM version >22.x
 ---
+## Step 1: Craete K8S Cluster
 
-## Step 1: Install Crossplane
+// turbo
+```bash
+ cd D:\backstage-self-lab\backstage-app\1-terraform-iac
+ terraform init
+ terraform apply -auto-approve
+./get-kubeconfig.sh -i <IP-PUBLIC>
+$env:KUBECONFIG="$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\config-ec2k8s"
+kubectl config view --flatten | Out-File -Encoding ascii "$env:USERPROFILE\.kube\config"
+kubectl get nodes
+./install-ebs-csi.sh 
+```
+## Step 2: Install Crossplane
 
 // turbo
 ```bash
@@ -43,7 +55,7 @@ Verify:
 kubectl get pods -n crossplane-system
 ```
 
-## Step 2: Install AWS Providers
+## Step 3: Install AWS Providers
 
 // turbo
 ```bash
@@ -55,7 +67,7 @@ Wait for providers (takes 2-3 minutes):
 kubectl get providers -w
 ```
 
-## Step 3: Configure AWS Credentials
+## Step 4: Configure AWS Credentials
 
 ⚠️ **Replace with your actual AWS credentials:**
 
@@ -81,7 +93,7 @@ Apply ProviderConfig:
 kubectl apply -f d:/jenkins-self-lab/crossplane-backstage/1-crossplane/provider/providerconfig.yaml
 ```
 
-## Step 4: Apply XRDs and Compositions
+## Step 5: Apply XRDs and Compositions
 
 // turbo
 ```bash
@@ -95,7 +107,7 @@ kubectl get xrd
 kubectl get compositions
 ```
 
-## Step 5: Install ArgoCD
+## Step 6: Install ArgoCD
 
 // turbo
 ```bash
@@ -103,6 +115,7 @@ kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
 helm upgrade --install argocd argo/argo-cd --namespace argocd -f d:/jenkins-self-lab/crossplane-backstage/2-argocd/argocd-values.yaml --wait
+kubectl apply -f D:\backstage-self-lab\backstage-app\3-argocd\argocd-applicationset-infrastructure.yaml
 ```
 
 Get admin password:
@@ -111,7 +124,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 
 
-Access: https://<IP-PUB>:31903(username: admin)
+Access: http://<IP-PUB>:31903(username: admin)
 
 
 
@@ -119,7 +132,7 @@ Save this token - you'll need it for GitHub secrets.
 
 
 
-## Step 6: Install Backstage
+## Step 7: Install Backstage
 
 
 
@@ -135,7 +148,7 @@ kubectl port-forward -n backstage svc/backstage 7007:80
 ```
 Access: http://localhost:7007
 
-## Step 7: Register Templates in Backstage
+## Step 8: Register Templates in Backstage
 
 1. Open Backstage: http://localhost:7007
 2. Go to **Create** menu
