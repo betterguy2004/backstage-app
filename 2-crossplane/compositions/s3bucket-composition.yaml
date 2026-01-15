@@ -24,7 +24,7 @@ spec:
           # S3 Bucket - namespaced in v2
           - name: bucket
             base:
-              apiVersion: s3.aws.upbound.io/v1beta2
+              apiVersion: s3.aws.m.upbound.io/v1beta2
               kind: Bucket
               spec:
                 forProvider: {}
@@ -53,7 +53,7 @@ spec:
           # Bucket Versioning
           - name: bucket-versioning
             base:
-              apiVersion: s3.aws.upbound.io/v1beta1
+              apiVersion: s3.aws.m.upbound.io/v1beta1
               kind: BucketVersioning
               spec:
                 forProvider:
@@ -83,7 +83,7 @@ spec:
           # Server Side Encryption
           - name: bucket-encryption
             base:
-              apiVersion: s3.aws.upbound.io/v1beta1
+              apiVersion: s3.aws.m.upbound.io/v1beta1
               kind: BucketServerSideEncryptionConfiguration
               spec:
                 forProvider:
@@ -114,7 +114,7 @@ spec:
           # Public Access Block
           - name: bucket-public-access-block
             base:
-              apiVersion: s3.aws.upbound.io/v1beta1
+              apiVersion: s3.aws.m.upbound.io/v1beta1
               kind: BucketPublicAccessBlock
               spec:
                 forProvider:
