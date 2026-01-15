@@ -24,7 +24,7 @@ spec:
           # S3 Bucket - namespaced in v2
           - name: bucket
             base:
-              apiVersion: s3.aws.m.upbound.io/v1beta2
+              apiVersion: s3.aws.m.upbound.io/v1beta1
               kind: Bucket
               spec:
                 forProvider: {}
@@ -58,7 +58,7 @@ spec:
               spec:
                 forProvider:
                   versioningConfiguration:
-                    - status: Enabled
+                    status: Enabled
                 providerConfigRef:
                   name: default
             patches:
