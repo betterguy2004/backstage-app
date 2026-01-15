@@ -30,6 +30,7 @@ spec:
                 forProvider: {}
                 providerConfigRef:
                   name: default
+                  kind: ProviderConfig
             patches:
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.bucketName
@@ -61,6 +62,7 @@ spec:
                     status: Enabled
                 providerConfigRef:
                   name: default
+                  kind: ProviderConfig
             patches:
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.bucketName
@@ -92,6 +94,7 @@ spec:
                         sseAlgorithm: AES256
                 providerConfigRef:
                   name: default
+                  kind: ProviderConfig
             patches:
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.bucketName
@@ -124,6 +127,7 @@ spec:
                   restrictPublicBuckets: true
                 providerConfigRef:
                   name: default
+                  kind: ProviderConfig
             patches:
               - type: FromCompositeFieldPath
                 fromFieldPath: spec.bucketName
