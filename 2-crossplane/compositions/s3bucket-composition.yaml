@@ -89,7 +89,7 @@ spec:
                 forProvider:
                   rule:
                     - applyServerSideEncryptionByDefault:
-                        - sseAlgorithm: AES256
+                        sseAlgorithm: AES256
                 providerConfigRef:
                   name: default
             patches:
