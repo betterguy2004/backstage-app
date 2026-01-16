@@ -153,7 +153,7 @@ Access: http://localhost:7007
 1. Open Backstage: http://localhost:7007
 2. Go to **Create** menu
 3. Click **Register Existing Component**
-4. Enter template URL from your repo or local path
+4. Enter template URL from your repo or local path (EX:https://github.com/betterguy2004/backstage-app/blob/main/4-backstage/catalog/all.yaml)
 
 ## Demo Flow
 
