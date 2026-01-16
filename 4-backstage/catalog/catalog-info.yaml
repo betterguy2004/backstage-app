@@ -39,30 +39,8 @@ spec:
   owner: platform-team
   system: infrastructure
 ---
-apiVersion: backstage.io/v1alpha1
-kind: Resource
-metadata:
-  name: aws-rds
-  description: AWS RDS Databases
-  annotations:
-    backstage.io/kubernetes-id: databases
-spec:
-  type: database
-  owner: platform-team
-  system: infrastructure
----
-apiVersion: backstage.io/v1alpha1
-kind: Resource
-metadata:
-  name: aws-vpc
-  description: AWS VPC Networks
-  annotations:
-    backstage.io/kubernetes-id: networks
-spec:
-  type: network
-  owner: platform-team
-  system: infrastructure
----
+
+
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
